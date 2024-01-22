@@ -3,5 +3,8 @@ return {
     'tpope/vim-fugitive',
     'tpope/vim-surround',
     'tpope/vim-repeat',
+    'tpope/vim-commentary',
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    'nvim-treesitter/nvim-treesitter-context'
 }
 
