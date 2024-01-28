@@ -1,15 +1,14 @@
 return {
-	'stevearc/conform.nvim',
+	"stevearc/conform.nvim",
 	opts = {},
 	config = function()
-	  require('conform').setup({
-	    formatters_by_ft = {
-	      lua = { "stylua" },
-	      -- Conform will run multiple formatters sequentially
-	      python = { "isort", "black" },
-	      -- Use a sub-list to run only the first available formatter
-	      javascript = { { "prettierd", "prettier" } },
-	    },
-	  })
-	end
+		require("conform").setup({
+			formatters_by_ft = {
+				lua = { "stylua" },
+				python = { "isort", "black" },
+				javascript = { { "prettierd", "prettier" } },
+				typescript = { { "prettierd", "prettier" } },
+			},
+		})
+	end,
 }
