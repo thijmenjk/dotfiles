@@ -8,10 +8,13 @@ return {
 			use_diagnostic_signs = true,
 		})
 
-		vim.keymap.set("n", "<leader>dl", function()
+		vim.keymap.set("n", "<leader>dw", function()
 			require("trouble").toggle()
 		end)
 
+		vim.keymap.set("n", "<leader>dl", function()
+			require("trouble").toggle("document_diagnostics")
+		end)
 		-- vim.keymap.set("n", "[d", function()
 		--     require("trouble").previous({ skip_groups = true, jump = true })
 		-- end)
