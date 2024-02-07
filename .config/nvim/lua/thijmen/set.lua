@@ -36,3 +36,18 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 		require("lint").try_lint()
 	end,
 })
+
+-- autosave on focus lost
+-- on FocusLost and BufLeave
+vim.api.nvim_create_autocmd("FocusLost", {
+	pattern = "*",
+	callback = function()
+		vim.cmd("silent! wall")
+	end,
+})
+vim.api.nvim_create_autocmd("BufLeave", {
+	pattern = "*",
+	callback = function()
+		vim.cmd("silent! wall")
+	end,
+})

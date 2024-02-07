@@ -9,6 +9,7 @@ return {
 				javascript = { "prettierd", "prettier" },
 				typescript = { "prettierd", "prettier" },
 				cs = { "csharpier" },
+				csproj = { "xmlformatter" },
 			},
 			format_after_save = {
 				lsp_fallback = true,
