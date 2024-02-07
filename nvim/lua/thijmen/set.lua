@@ -31,12 +31,6 @@ vim.cmd([[let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro']])
 
 vim.opt.statusline = "%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P"
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		require("conform").format({ bufnr = args.buf })
-	end,
-})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
 		require("lint").try_lint()

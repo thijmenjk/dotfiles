@@ -10,6 +10,11 @@ return {
 				typescript = { "prettierd", "prettier" },
 				cs = { "csharpier" },
 			},
+			format_after_save = {
+				lsp_fallback = true,
+			},
+			log_level = vim.log.levels.ERROR,
+			notify_on_error = true,
 		})
 	end,
 }
