@@ -9,6 +9,7 @@ return {
 		vim.keymap.set("n", "<leader>ps", telescope.live_grep, {})
 		vim.keymap.set("n", "<C-p>", telescope.git_files, {})
 		vim.keymap.set("n", "<C-n>", telescope.lsp_workspace_symbols, {})
+		vim.keymap.set("n", "<leader>n", telescope.lsp_document_symbols, {})
 		vim.keymap.set("n", "<leader>pr", telescope.resume, {})
 	end,
 }
