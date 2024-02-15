@@ -3,13 +3,13 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
 		"L3MON4D3/LuaSnip",
 		"hrsh7th/nvim-cmp",
+		"Hoffs/omnisharp-extended-lsp.nvim",
 	},
 	config = function()
 		require("mason").setup({
@@ -28,7 +28,15 @@ return {
 			},
 			handlers = {
 				function(server_name)
-					require("lspconfig")[server_name].setup({})
+					if server_name == "omnisharp" then
+						require("lspconfig").omnisharp.setup({
+							handlers = {
+								["textDocument/definition"] = require("omnisharp_extended").handler,
+							},
+						})
+					else
+						require("lspconfig")[server_name].setup({})
+					end
 				end,
 				["lua_ls"] = function()
 					local lspconfig = require("lspconfig")
