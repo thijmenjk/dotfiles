@@ -444,6 +444,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sp', builtin.git_files, { desc = '[S]earch [P]roject' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -490,6 +491,7 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
+      'Hoffs/omnisharp-extended-lsp.nvim',
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
@@ -682,6 +684,7 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
 
             if server_name == 'omnisharp' then
+              print 'Setting up omnisharp extended'
               server.handlers = {
                 ['textDocument/definition'] = require('omnisharp_extended').handler,
               }
@@ -752,8 +755,6 @@ require('lazy').setup({
       --    for various frameworks/libraries/etc. but you will have to
       --    set up the ones that are useful for you.
       'rafamadriz/friendly-snippets',
-
-      'Hoffs/omnisharp-extended-lsp.nvim',
     },
     config = function()
       -- See `:help cmp`
