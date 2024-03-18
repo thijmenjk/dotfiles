@@ -10,16 +10,17 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(echo $selected | sed 's,^/home/.*/,,g' | tr . _)
+# only take the last two parts of the path
+selected_name=$(echo $selected | rev | cut -d/ -f1,2 | rev | tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
+    tmux new-session -s "$selected_name" -c $selected "[[ -f ./.tmses.user ]] && zsh .tmses.user || $HOME/.tmses.user; exec zsh"
     exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
+if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+    tmux new-session -ds "$selected_name" -c $selected "[[ -f ./.tmses.user ]] && zsh .tmses.user || zsh $HOME/.tmses.user; exec zsh"
 fi
 
-tmux switch-client -t $selected_name
+tmux switch-client -t "$selected_name"
