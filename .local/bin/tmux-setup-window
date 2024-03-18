@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+script_dir=$(dirname $0)
+
+selected=$(find ~/.config/tmux/setups/* | fzf)
+session_name=$(tmux display-message -p "#S")
+
+keys=$(cat $selected)
+
+tmux send-keys -t $session_name $keys

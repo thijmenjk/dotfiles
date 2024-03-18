@@ -529,6 +529,8 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+
           -- NOTE: Remember that lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself
           -- many times.
@@ -539,10 +541,17 @@ require('lazy').setup({
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          -- Jump to the definition of the word under your cursor.
-          --  This is where a variable was first declared, or where a function is defined, etc.
-          --  To jump back, press <C-T>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          if client ~= nil and client.name == 'omnisharp' then
+            -- Jump to the definition of the word under your cursor.
+            --  This is where a variable was first declared, or where a function is defined, etc.
+            --  To jump back, press <C-T>.
+            map('gd', require('omnisharp_extended').telescope_lsp_definitions, '[G]oto [D]efinition')
+          else
+            -- Jump to the definition of the word under your cursor.
+            --  This is where a variable was first declared, or where a function is defined, etc.
+            --  To jump back, press <C-T>.
+            map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          end
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -641,13 +650,6 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tsserver = {},
         --
-
-        omnisharp = {
-          handlers = {
-            ['textDocument/definition'] = require('omnisharp_extended').handler,
-          },
-        },
-
         lua_ls = {
           -- cmd = {...},
           -- filetypes { ...},
@@ -814,12 +816,11 @@ require('lazy').setup({
             end
           end, { 'i', 's' }),
         },
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-        }, {
-          { name = 'buffer' },
-        }),
+          { name = 'path' },
+        },
       }
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).

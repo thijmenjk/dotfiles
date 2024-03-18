@@ -3,7 +3,19 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-
+  {
+    'folke/zen-mode.nvim',
+    opts = {
+      plugins = {
+        options = {
+          enabled = true,
+          ruler = true,
+          showcmd = true,
+          laststatus = 3,
+        },
+      },
+    },
+  },
   'tpope/vim-surround',
   'tpope/vim-repeat',
 }
