@@ -625,7 +625,7 @@ require('lazy').setup({
               plugins = {
                 pycodestyle = {
                   maxLineLength = 100,
-                  ignore = { 'E203' },
+                  ignore = { 'E203', 'W503' },
                 },
               },
             },
