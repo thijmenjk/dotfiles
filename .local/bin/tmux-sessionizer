@@ -3,14 +3,14 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/source/repos/**/.git/HEAD | sed 's,/.git/HEAD,,g' | fzf)
+    selected=$(find ~/**/.git/HEAD | sed 's,/.git/HEAD,,g' | fzf)
 fi
 
 if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+selected_name=$(echo $selected | sed 's,^/home/.*/,,g' | tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
