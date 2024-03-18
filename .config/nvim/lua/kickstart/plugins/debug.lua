@@ -62,11 +62,12 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        -- 'delve',
       },
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
+    vim.keymap.set('n', '<F4>', dap.disconnect, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })

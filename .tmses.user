@@ -1,0 +1,5 @@
+#!/bin/env zsh
+tmux split-window
+tmux resize-pane -D 20
+tmux send-keys -t 1 'nvim .' Enter
+

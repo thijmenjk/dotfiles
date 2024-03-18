@@ -25,5 +25,18 @@ return {
     vim.keymap.set('n', '<leader>5', function()
       require('harpoon.ui').nav_file(5)
     end)
+
+    vim.keymap.set('n', '<leader>q', function()
+      require('harpoon.term').gotoTerminal(1)
+    end)
+    vim.keymap.set('n', '<leader>w', function()
+      require('harpoon.term').gotoTerminal(2)
+    end)
+    vim.keymap.set('n', '<leader>e', function()
+      require('harpoon.term').gotoTerminal(3)
+    end)
+    vim.keymap.set('n', '<leader>r', function()
+      require('harpoon.term').gotoTerminal(4)
+    end)
   end,
 }
