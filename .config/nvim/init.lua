@@ -105,7 +105,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = ''
+vim.opt.mouse = 'n'
 
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
@@ -774,7 +774,29 @@ require('lazy').setup({
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
+      local ELLIPSIS_CHAR = '…'
+      local MAX_LABEL_WIDTH = 50
+
+      local get_ws = function(max, len)
+        return (' '):rep(max - len)
+      end
+
+      local format = function(_, item)
+        local content = item.abbr
+        if #content > MAX_LABEL_WIDTH then
+          item.abbr = vim.fn.strcharpart(content, 0, MAX_LABEL_WIDTH) .. ELLIPSIS_CHAR
+        else
+          item.abbr = content .. get_ws(MAX_LABEL_WIDTH, #content)
+        end
+
+        return item
+      end
+
       cmp.setup {
+        formatting = {
+          format = format,
+        },
+
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
