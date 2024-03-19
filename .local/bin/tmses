@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/playground ~/vaults ~/dotfiles ~/source ~/exante -type d -name .git -print | sed 's,/.git,,g' | fzf)
+    selected=$(find ~/playground ~/vaults ~/dotfiles ~/source ~/exante -maxdepth 2 -type d -name .git -print | sed 's,/.git,,g' | fzf)
 fi
 
 if [[ -z $selected ]]; then
