@@ -3,13 +3,14 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find . -type d -name .git -maxdepth 3 -print | sed 's,/.git,,g' | fzf)
+    selected=$(find ~/source ~/exante -type d -name .git -print | sed 's,/.git,,g' | fzf)
 fi
 
 if [[ -z $selected ]]; then
     exit 0
 fi
 
+echo $selected
 # only take the last two parts of the path
 selected_name=$(echo $selected | rev | cut -d/ -f1,2 | rev | tr . _)
 tmux_running=$(pgrep tmux)
